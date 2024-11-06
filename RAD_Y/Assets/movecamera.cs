@@ -6,11 +6,12 @@ using UnityEngine.UIElements;
 
 public class movecamera : MonoBehaviour
 {
-
+    public GameObject knifeCloneTemplate;
     float speed = 3;
     // Start is called before the first frame update
     void Start()
     {
+    
 
     }
 
@@ -28,9 +29,14 @@ public class movecamera : MonoBehaviour
             transform.position -= speed * transform.forward * Time.deltaTime;
         }
         transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"));
+        transform.Rotate(transform.right, Input.GetAxis("Horizontal"), Space.World);
 
+        if (Input.GetKey(KeyCode.S))
 
+        {
+            Instantiate(knifeCloneTemplate);
 
+        }
 
 
 
