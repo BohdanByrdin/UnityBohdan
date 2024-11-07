@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using UnityEngine.UIElements;
+
 
 public class movecamera : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class movecamera : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-    
+     Cursor.lockState = CursorLockMode.Locked;
 
     }
 
@@ -20,21 +20,25 @@ public class movecamera : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.W))
         {
+            Vector3 fpsMovementDir = new Vector3(transform.forward.x, 0, transform.forward.z);  
+            fpsMovementDir.Normalize();
             transform.position += speed * transform.forward * Time.deltaTime;
 
         }
 
         if (Input.GetKey(KeyCode.S))
         {
+            Vector3 fpsMovementDir = new Vector3(transform.forward.x, 0, transform.forward.z);
+            fpsMovementDir.Normalize();
             transform.position -= speed * transform.forward * Time.deltaTime;
         }
-        transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"));
-        transform.Rotate(transform.right, Input.GetAxis("Horizontal"), Space.World);
+        transform.Rotate(Vector3.up, Input.GetAxis("Horizontal"), Space.World); 
+        transform.Rotate(transform.right, Input.GetAxis("Vertical"), Space.World);
 
-        if (Input.GetKey(KeyCode.S))
+        if (Input.GetMouseButtonDown(0))
 
         {
-            Instantiate(knifeCloneTemplate);
+            Instantiate(knifeCloneTemplate, transform.position, transform.rotation);
 
         }
 
